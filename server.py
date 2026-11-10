@@ -11,7 +11,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import urlparse
 
-from agent.core import Agent
+from agent.core import Agent, professional_error
 from agent.memory import Memory
 
 ROOT = Path(__file__).resolve().parent
@@ -41,7 +41,7 @@ def history(session=None):
     try:
         if session:
             rows = m.db.execute('SELECT role,content,ts FROM turns WHERE user_id=? AND session=? ORDER BY id', (user_id(), session)).fetchall()
-            return [{'role': r[0], 'content': r[1], 'ts': r[2]} for r in rows]
+            return [{'role': r[0], 'content': professional_error(r[1]) if r[0] == 'assistant' and r[1].startswith('Sorry, the language model call failed (') else r[1], 'ts': r[2]} for r in rows]
         rows = m.db.execute('SELECT session,MIN(ts),MAX(ts),COUNT(*) FROM turns WHERE user_id=? GROUP BY session ORDER BY MAX(ts) DESC LIMIT 100', (user_id(),)).fetchall()
         out = []
         for sess, start, end, count in rows:
