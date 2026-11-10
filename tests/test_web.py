@@ -68,3 +68,12 @@ class WebTests(unittest.TestCase):
                 status,body,_=self.request('/api/chat',{'question':'test question','session':'s'})
             self.assertEqual(status,200);self.assertEqual(json.loads(body)['answer'],'controlled test response')
             self.assertEqual(len(json.loads(self.request('/api/session/s')[1])['messages']),2)
+            for detail, phrase in [('429 rate limit secret-token-123', 'usage limit'), ('401 unauthorized secret-token-123', 'authorize'), ('connection timed out secret-token-123', 'reached'), ('unexpected secret-token-123', 'could not be completed')]:
+                with patch('agent.core.LLM.chat',side_effect=RuntimeError(detail)):
+                    status,body,_=self.request('/api/chat',{'question':'test failure','session':'errors'})
+                result=json.loads(body)
+                self.assertEqual(status,200);self.assertTrue(result['stats']['error'])
+                self.assertIn(phrase,result['answer']);self.assertNotIn('secret-token',result['answer']);self.assertNotIn('RuntimeError',result['answer'])
+            m=Memory(server.db_path());m.add('web-test','legacy','assistant','Sorry, the language model call failed (RuntimeError: 429 rate limit secret-token-123). Please retry.');m.db.close()
+            saved=json.loads(self.request('/api/session/legacy')[1])['messages'][0]['content']
+            self.assertIn('usage limit',saved);self.assertNotIn('secret-token',saved)
