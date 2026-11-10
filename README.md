@@ -2,9 +2,9 @@
 
 ## Video walkthrough
 
-[![Search & Recall walkthrough: click to watch the 5 minute 19 second narrated video](docs/images/ui-conversation-desktop.svg)](https://files.instinct.com/n2jvyjwdzpdh-search-recall-live-walkthrough)
+https://github.com/user-attachments/assets/855d8ecd-a2a5-4cae-a1a2-75322dcce8ed
 
-**[Watch the narrated walkthrough (5 min 19 s)](https://files.instinct.com/n2jvyjwdzpdh-search-recall-live-walkthrough)** - it opens without signing in. It covers Conversation, System & setup, the original live-request footage, a clearly labeled reopening of saved provider outcomes, History, persistence after reload, the mobile layout and the current limits. No successful response is staged.
+Narrated 5 minute 19 second walkthrough. It covers Conversation, System & setup, the original live-request footage, a clearly labeled reopening of saved provider outcomes, History, persistence after reload, the mobile layout and the current limits. No successful response is staged.
 
 A local web and command-line assistant with exactly one model-visible tool, `web_search`, and timestamped, per-user conversation memory across sessions.
 
