@@ -58,7 +58,7 @@ class AgentTests(unittest.TestCase):
 
     def test_llm_failure_is_reported_and_stored(self):
         a, mem = mk([RuntimeError("boom")])
-        self.assertIn("failed", a.ask("q"))
+        self.assertIn("could not be completed", a.ask("q"))
         self.assertEqual(len(mem.recent("u", "s")), 2)
 
     def test_search_failure_is_passed_to_model(self):
