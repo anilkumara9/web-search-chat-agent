@@ -1,14 +1,34 @@
 # Web-search chat agent
 
+## Video walkthrough
+
+[![Search & Recall walkthrough: click to watch the 5 minute 19 second narrated video](docs/images/ui-conversation-desktop.svg)](https://files.instinct.com/n2jvyjwdzpdh-search-recall-live-walkthrough)
+
+**[Watch the narrated walkthrough (5 min 19 s)](https://files.instinct.com/n2jvyjwdzpdh-search-recall-live-walkthrough)** - it opens without signing in. It covers Conversation, System & setup, the original live-request footage, a clearly labeled reopening of saved provider outcomes, History, persistence after reload, the mobile layout and the current limits. No successful response is staged.
+
 A local web and command-line assistant with exactly one model-visible tool, `web_search`, and timestamped, per-user conversation memory across sessions.
 
-## Video and system design
+## System design
 
-[Watch the narrated actual application walkthrough and open the system diagram](https://files.instinct.com/n2jvyjwdzpdh-search-recall-live-walkthrough)
+<img src="docs/images/system-design.svg" alt="System design: the browser UI posts to a local Python server on 127.0.0.1, which runs Agent.ask. The agent reads and writes SQLite with FTS5, calls the model API, and exposes one web_search tool through a search adapter with a 300-second cache to Tavily, Brave or DuckDuckGo. Output checks run before the JSON response." width="100%">
 
-The linked page also includes desktop, actual-result, mobile and setup screenshots. The walkthrough covers Conversation, System & setup, actual saved provider outcomes, History, persistence after reload, responsive mobile layout and limitations. Its result section starts with original live-request footage, then reopens saved attempts; no successful response is staged. [Editable self-contained system diagram](docs/system-design.html) · [Detailed design notes and historical CLI evidence](design.md).
+The styled diagram was built from `caru-ini/stack-diagram`; its [editable HTML source](docs/system-design.html) is in the repository. [Detailed design notes and historical CLI evidence](design.md).
 
-### Architecture at a glance
+## Screenshots
+
+These are captures of the running application, not mockups.
+
+| Conversation (desktop) | Conversation (mobile, 390 px) |
+| --- | --- |
+| <img src="docs/images/ui-conversation-desktop.svg" alt="Conversation view with the empty-state prompt and message box" width="560"> | <img src="docs/images/ui-conversation-mobile.svg" alt="Conversation view on a 390 pixel wide screen with top navigation tabs" width="240"> |
+
+| System & setup | Reopened saved attempt (partial answer) |
+| --- | --- |
+| <img src="docs/images/ui-system-setup.svg" alt="System and setup page with configuration, local run steps, memory and boundaries cards" width="560"> | <img src="docs/images/ui-saved-partial-answer.svg" alt="History view reopening a saved attempt about the latest stable Go release, with source links and a stated limit" width="560"> |
+
+The last screenshot reopens a saved attempt from an explicitly labeled `openai/gpt-oss-20b` compatibility run. It returned a Go language-version source and says what it could not verify. It is a partial result, not an accuracy pass.
+
+## Architecture in text
 
 ```mermaid
 flowchart TB
@@ -26,9 +46,9 @@ flowchart TB
     O --> CLI
 ```
 
-The styled diagram was built from `caru-ini/stack-diagram`. Its [editable HTML source](docs/system-design.html) contains the browser, local server, single-tool agent, memory, cache and remote API boundaries. Open the full-size graphic in the walkthrough link above. API keys remain server-side; local user scoping is not authentication. The browser does not call Groq or search providers directly.
+The diagram boundaries are the browser, local server, single-tool agent, memory, cache and remote APIs. API keys remain server-side; local user scoping is not authentication. The browser does not call Groq or search providers directly.
 
-### Current web integration status, 10 November 2026
+## Current web integration status, 10 November 2026
 
 - **Verified locally:** 25 deterministic tests, optional browser smoke checks at 320/390/768/1440px, navigation, safe rendering, configuration errors, saved history/title filtering and reopening after reload.
 - **Not yet verified:** a successful full model/search answer and model-generated cross-session recall through the new web interface. Default `openai/gpt-oss-120b` attempts reached provider rate limits after a recorded search call. UI control-flow tests do not prove the provider is the only possible cause of an end-to-end failure.
