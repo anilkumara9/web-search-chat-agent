@@ -15,7 +15,7 @@ available. Configuration badges report credential presence, not provider health.
 The original CLI remains supported. Full startup, route details, controls and
 privacy limits are documented in [README.md](README.md).
 
-![Web system design](docs/system-design.png)
+[Open the system diagram and actual narrated walkthrough](https://files.instinct.com/n2jvyjwdzpdh-search-recall-live-walkthrough)
 
 25 deterministic tests pass: the original19 and6 HTTP tests covering static/CSP,
 key non-disclosure, validation/configuration, host/origin/token rejection, scoped
