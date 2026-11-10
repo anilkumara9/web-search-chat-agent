@@ -1,5 +1,29 @@
 # Design
 
+## Local web interface
+
+The browser UI in `web/` calls the loopback-only standard-library HTTP server in
+`server.py`. It reuses the same `Agent` and the same one model-visible `web_search`
+tool. Conversation, history/title search, and System & setup are implemented;
+there is no login or public deployment. Host/origin checks, a per-start token,
+allowlisted static files, a content security policy and text-node rendering reduce
+common local-web risks, but this is not a security audit or shared-hosting design.
+Keys stay in server environment variables. SQLite connections are opened and closed
+per request. One global request lock serializes chat across tabs; history remains
+available. Configuration badges report credential presence, not provider health.
+
+The original CLI remains supported. Full startup, route details, controls and
+privacy limits are documented in [README.md](README.md).
+
+![Web system design](docs/system-design.png)
+
+25 deterministic tests pass: the original19 and6 HTTP tests covering static/CSP,
+key non-disclosure, validation/configuration, host/origin/token rejection, scoped
+persistent history, and busy/control-flow behavior. Scripted model tests are not
+accuracy evidence. UI desktop/mobile inspection and current live outcomes are
+reported separately from the historical build records below.
+
+
 ## Goal
 One tool (web search). Answer fast, get things right, remember what was asked and when.
 
