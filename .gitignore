@@ -1,3 +1,7 @@
 __pycache__/
 *.db
 .env
+*.db-wal
+*.db-shm
+*.db-journal
+.env.*
