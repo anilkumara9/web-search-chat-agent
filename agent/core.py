@@ -12,6 +12,23 @@ import re
 from .memory import Memory, fmt_ts, ago
 from .search import TOOL_SPEC, web_search
 
+def professional_error(error):
+    """Return a safe, actionable message without provider payloads or credentials."""
+    text = str(error).lower()
+    if '429' in text or 'rate limit' in text or 'quota' in text:
+        return ('The model provider has reached its request or usage limit. This answer could not be completed. '
+                'Wait for the provider cooldown, or check your account limits before trying again. '
+                'Your question is saved in History. No final answer was verified.')
+    if any(x in text for x in ('401', '403', 'api key', 'unauthorized', 'authentication')):
+        return ('The model provider could not authorize this request. Check the server credential and account access, '
+                'then restart the server before trying again. Your question is saved in History.')
+    if any(x in text for x in ('timeout', 'timed out', 'connection', 'urlerror', '502', '503', '504')):
+        return ('The model provider could not be reached or did not respond in time. Check your connection and '
+                'provider status. Review History before trying again; this answer was not completed.')
+    return ('The model request could not be completed. Check the server configuration and provider status. '
+            'Review History before trying again. No final answer was verified.')
+
+
 MAX_TOOL_ROUNDS = 2
 RECENCY = re.compile(r"\b(latest|newest|current|most recent|up[- ]to[- ]date|as of now)\b", re.I)
 SITE_NOTE = ("This question asks for the latest/current item and this search had no `site`. "
@@ -38,7 +55,10 @@ Accuracy rules:
   reference markers like 【2†L1-L4】 or [1]; never invent URLs, quotes or numbers.
 - If the results do not let you establish the newest item or an exact date, say exactly
   what you could and could not verify instead of choosing one. If you could not verify something, say that.
-- Keep answers short and direct; lead with the answer.
+- Keep answers short and direct; lead with the answer. Use a professional, calm tone.
+- Use short paragraphs, useful headings and simple lists when they improve readability.
+  State uncertainty plainly. Avoid hype, filler, apologies for routine limits, or promises
+  that everything is correct. Never present a provider failure as a factual answer.
 
 Memory rules:
 - You have a timestamped log of this user's past questions. It is provided below as
@@ -225,8 +245,8 @@ class Agent:
                                  "results above, and state plainly anything you could not verify."})
                     msg = self.llm.chat(flat, None)
             except Exception as e:
-                answer = f"Sorry, the language model call failed ({type(e).__name__}: {e}). Please retry."
-                stats["error"] = answer
+                answer = professional_error(e)
+                stats["error"] = "model_request_failed"
                 break
             stats["llm_calls"] += 1
             calls = msg.get("tool_calls")
