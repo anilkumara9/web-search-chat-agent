@@ -1,0 +1,93 @@
+{
+ "model": "qwen/qwen3.8-27b",
+ "runs": [
+  {
+   "session": "session-A",
+   "question": "What is the latest stable version of Python and when was it released?",
+   "answer": "Sorry, the language model call failed (RuntimeError: rate limited by the model provider; retry in about 21 s). Please retry.",
+   "answer_visible_ms": 7246,
+   "total_ms": 7246,
+   "searches": [
+    {
+     "query": "latest stable Python release",
+     "ms": 207,
+     "cached": false
+    },
+    {
+     "query": "Python 3.13 latest release 2026",
+     "ms": 2555,
+     "cached": false
+    },
+    {
+     "query": "Python 3.14 latest release 2026",
+     "ms": 2126,
+     "cached": false
+    }
+   ],
+   "llm_calls": 3,
+   "removed_urls": [],
+   "error": "Sorry, the language model call failed (RuntimeError: rate limited by the model provider; retry in about 21 s). Please retry."
+  },
+  {
+   "session": "session-A",
+   "question": "Who is the current CEO of Nvidia?",
+   "answer": "The current CEO of Nvidia is **Jensen Huang** (Jen-Hsun Huang), who is also the company's co-founder and president. He has held the role since Nvidia's founding in 1993.\n\nNote: A recent NVIDIA board statement (Nov 8, 2026) mentions an independent investigation into reporting that Huang has been the target of a foreign intelligence effort, but he remains CEO.\n\nSources:\n- https://en.wikipedia.org/wiki/Jensen_Huang\n- https://nvidianews.nvidia.com/news/statement-from-nvidia-board-of-directors",
+   "answer_visible_ms": 1985,
+   "total_ms": 1986,
+   "searches": [
+    {
+     "query": "current CEO of Nvidia 2026",
+     "ms": 200,
+     "cached": false
+    }
+   ],
+   "llm_calls": 2,
+   "removed_urls": [],
+   "error": null
+  },
+  {
+   "session": "session-A",
+   "question": "What is 17 times 23?",
+   "answer": "17 \u00d7 23 = **391**",
+   "answer_visible_ms": 160,
+   "total_ms": 161,
+   "searches": [],
+   "llm_calls": 1,
+   "removed_urls": [],
+   "error": null
+  },
+  {
+   "session": "session-B",
+   "question": "What did I ask you about Python earlier, and when?",
+   "answer": "You asked: \"What is the latest stable version of Python and when was it released?\" \u2014 at 2026-11-10 16:04 UTC.",
+   "answer_visible_ms": 220,
+   "total_ms": 221,
+   "searches": [],
+   "llm_calls": 1,
+   "removed_urls": [],
+   "error": null
+  },
+  {
+   "session": "session-B",
+   "question": "List every question I have asked you so far.",
+   "answer": "Here are all the questions you've asked so far, in order:\n\n1. **What is the latest stable version of Python and when was it released?** \u2014 2026-11-10 16:04 UTC\n2. **Who is the current CEO of Nvidia?** \u2014 2026-11-10 16:04 UTC\n3. **What is 17 times 23?** \u2014 2026-11-10 16:04 UTC\n4. **What did I ask you about Python earlier, and when?** \u2014 2026-11-10 16:05 UTC\n\nThat's the full record I have of your past questions.",
+   "answer_visible_ms": 1192,
+   "total_ms": 1193,
+   "searches": [],
+   "llm_calls": 1,
+   "removed_urls": [],
+   "error": null
+  },
+  {
+   "session": "session-C",
+   "question": "What did I ask you earlier about Python or Nvidia?",
+   "answer": "I have no record of that \u2014 your past-questions log is empty, so this is the first conversation.",
+   "answer_visible_ms": 389,
+   "total_ms": 390,
+   "searches": [],
+   "llm_calls": 1,
+   "removed_urls": [],
+   "error": null
+  }
+ ]
+  }
