@@ -11,7 +11,7 @@ The linked page also includes desktop, actual-result, mobile and setup screensho
 ### Architecture at a glance
 
 ```mermaid
-flowchart LR
+flowchart TB
     UI[Browser workspace] -->|Local JSON API| S[Loopback Python server]
     CLI[CLI] --> A[Agent.ask]
     S --> A
