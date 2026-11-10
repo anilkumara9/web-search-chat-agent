@@ -18,15 +18,15 @@ The styled diagram was built from `caru-ini/stack-diagram`; its [editable HTML s
 
 These are captures of the running application, not mockups.
 
-| Conversation (desktop) | Conversation (mobile, 390 px) |
+| Conversation (desktop) | Mobile layout with a saved failed attempt |
 | --- | --- |
-| <img src="docs/images/ui-conversation-desktop.svg" alt="Conversation view with the empty-state prompt and message box" width="560"> | <img src="docs/images/ui-conversation-mobile.svg" alt="Conversation view on a 390 pixel wide screen with top navigation tabs" width="240"> |
+| <img src="docs/images/ui-conversation-desktop.svg" alt="Conversation view with the empty-state prompt and message box" width="560"> | <img src="docs/images/ui-conversation-mobile.svg" alt="Mobile conversation view with top navigation tabs, a saved question and the provider usage-limit message" width="260"> |
 
 | System & setup | Reopened saved attempt (partial answer) |
 | --- | --- |
 | <img src="docs/images/ui-system-setup.svg" alt="System and setup page with configuration, local run steps, memory and boundaries cards" width="560"> | <img src="docs/images/ui-saved-partial-answer.svg" alt="History view reopening a saved attempt about the latest stable Go release, with source links and a stated limit" width="560"> |
 
-The last screenshot reopens a saved attempt from an explicitly labeled `openai/gpt-oss-20b` compatibility run. It returned a Go language-version source and says what it could not verify. It is a partial result, not an accuracy pass.
+The mobile screenshot shows a saved attempt that ended at a provider usage limit; the message is the application's current user-facing error text. The last screenshot reopens a saved attempt from an explicitly labeled `openai/gpt-oss-20b` compatibility run. It returned a Go language-version source and says what it could not verify. It is a partial result, not an accuracy pass.
 
 ## Architecture in text
 
